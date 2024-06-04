@@ -1,4 +1,4 @@
-# Youtubeblink
+# YoutubeBlink
 Create YouTube video summaries using Langchain, Javascript and OpenAI APIs.
 
 Live App Demo: https://openai-video-summary-fe.vercel.app/
