@@ -11,4 +11,7 @@ Medium article: https://medium.com/@felipecembranelli/youtubeblink-an-openai-vid
 
 Please send me a message: felipecembranelli@live.com
 
+## Architecture Overview
+
+![image](https://github.com/user-attachments/assets/826e2952-6575-4a6f-89d7-09d9df0279d2)
 
