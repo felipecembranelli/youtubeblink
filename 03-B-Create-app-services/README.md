@@ -3,6 +3,7 @@
 To save time, we have an ARM template to get a few Azure resources created:
 
 - App Services (Used to store Docker Images for the UI Application and Backend API Service)
+- App Service Plan (Resources needed to host the application and services)
 
 Go ahead and Deploy to Azure
 

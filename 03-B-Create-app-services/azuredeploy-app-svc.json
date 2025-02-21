@@ -2,13 +2,52 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_videosummary_name": {
+        "ui_sites_videosummary_name": {
             "defaultValue": "youraliasvideosummaryui",
             "type": "String"
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "F1",
+            "metadata": {
+                "description": "The SKU of App Service Plan."
+            }
+        },
+        "ui_inuxFxVersion": {
+            "type": "string",
+            "defaultValue": "DOTNETCORE|3.0",
+            "metadata": {
+                "description": "The Runtime stack of current web app"
+            }
+        },
+        "api_sites_videosummary_name": {
+            "defaultValue": "youraliasvideosummaryAPI",
+            "type": "String"
+        },
+        "api_linuxFxVersion": {
+            "type": "string",
+            "defaultValue": "DOTNETCORE|3.0",
+            "metadata": {
+                "description": "The Runtime stack of current web app"
+            }
         },
         "serverfarms_videosummaryasp_name": {
             "defaultValue": "youraliasvideosummaryasp",
             "type": "String"
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "F1",
+            "metadata": {
+              "description": "The SKU of App Service Plan."
+            }
         }
     },
     "variables": {},
@@ -19,11 +58,7 @@
             "name": "[parameters('serverfarms_videosummaryasp_name')]",
             "location": "East US",
             "sku": {
-                "name": "P1v2",
-                "tier": "PremiumV2",
-                "size": "P1v2",
-                "family": "Pv2",
-                "capacity": 1
+                "name": "[parameters('sku')]"
             },
             "kind": "linux",
             "properties": {
@@ -40,7 +75,7 @@
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2018-11-01",
-            "name": "[parameters('sites_videosummary_name')]",
+            "name": "[parameters('ui_sites_videosummary_name')]",
             "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_videosummaryasp_name'))]"
@@ -50,12 +85,12 @@
                 "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_videosummary_name'), '.azurewebsites.net')]",
+                        "name": "[concat(parameters('ui_sites_videosummary_name'), '.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Standard"
                     },
                     {
-                        "name": "[concat(parameters('sites_videosummary_name'), '.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('ui_sites_videosummary_name'), '.scm.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Repository"
                     }
@@ -78,10 +113,10 @@
         {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('sites_videosummary_name'), '/web')]",
+            "name": "[concat(parameters('ui_sites_videosummary_name'), '/web')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_videosummary_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('ui_sites_videosummary_name'))]"
             ],
             "properties": {
                 "numberOfWorkers": 1,
@@ -151,13 +186,137 @@
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('sites_videosummary_name'), '/', parameters('sites_videosummary_name'), '.azurewebsites.net')]",
+            "name": "[concat(parameters('ui_sites_videosummary_name'), '/', parameters('ui_sites_videosummary_name'), '.azurewebsites.net')]",
             "location": "East US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_videosummary_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('ui_sites_videosummary_name'))]"
             ],
             "properties": {
                 "siteName": "videosummary",
+                "hostNameType": "Verified"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('api_sites_videosummary_name')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_videosummaryasp_name'))]"
+            ],
+            "kind": "app,linux,container",
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('api_sites_videosummary_name'), '.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('api_sites_videosummary_name'), '.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_videosummaryasp_name'))]",
+                "reserved": true,
+                "isXenon": false,
+                "hyperV": false,
+                "siteConfig": {},
+                "scmSiteAlsoStopped": false,
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "httpsOnly": false,
+                "redundancyMode": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('api_sites_videosummary_name'), '/web')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('api_sites_videosummary_name'))]"
+            ],
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "linuxFxVersion": "DOCKER|mcr.microsoft.com/appsvc/staticsite:latest",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "$videosummary",
+                "azureStorageAccounts": {},
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": true,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": true
+                    }
+                ],
+                "loadBalancing": "LeastRequests",
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "autoHealEnabled": false,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictions": [
+                    {
+                        "ipAddress": "Any",
+                        "action": "Allow",
+                        "priority": 1,
+                        "name": "Allow all",
+                        "description": "Allow all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": false,
+                "http20Enabled": false,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed",
+                "reservedInstanceCount": 0
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('api_sites_videosummary_name'), '/', parameters('api_sites_videosummary_name'), '.azurewebsites.net')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('api_sites_videosummary_name'))]"
+            ],
+            "properties": {
+                "siteName": "videosummaryapi",
                 "hostNameType": "Verified"
             }
         }
