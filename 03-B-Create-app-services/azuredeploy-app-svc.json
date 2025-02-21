@@ -2,10 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "ui_sites_videosummary_name": {
-            "defaultValue": "youraliasvideosummaryui",
-            "type": "String"
-        },
         "location": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
@@ -13,34 +9,13 @@
                 "description": "Location for all resources."
             }
         },
-        "sku": {
-            "type": "string",
-            "defaultValue": "F1",
-            "metadata": {
-                "description": "The SKU of App Service Plan."
-            }
-        },
-        "ui_inuxFxVersion": {
-            "type": "string",
-            "defaultValue": "DOTNETCORE|3.0",
-            "metadata": {
-                "description": "The Runtime stack of current web app"
-            }
-        },
-        "api_sites_videosummary_name": {
-            "defaultValue": "youraliasvideosummaryAPI",
-            "type": "String"
-        },
-        "api_linuxFxVersion": {
-            "type": "string",
-            "defaultValue": "DOTNETCORE|3.0",
-            "metadata": {
-                "description": "The Runtime stack of current web app"
-            }
-        },
         "serverfarms_videosummaryasp_name": {
             "defaultValue": "youraliasvideosummaryasp",
-            "type": "String"
+            "type": "String",
+            "metadata": {
+                "name": "App Service Plan Name",
+                "description": "Location for all resources."
+            }
         },
         "sku": {
             "type": "string",
@@ -48,7 +23,39 @@
             "metadata": {
               "description": "The SKU of App Service Plan."
             }
+        },
+        "ui_LinuxFxVersion": {
+            "type": "string",
+            "defaultValue": "DOTNETCORE|3.0",
+            "metadata": {
+                "name": "Runtime",
+                "description": "The Runtime stack of current web app"
+            }
+        },
+        "ui_sites_videosummary_name": {
+            "defaultValue": "youraliasvideosummaryui",
+            "type": "String",
+            "metadata": {
+                "name": "Frontend App Service Name",
+                "description": "The Runtime stack of current web app"
+            }
+        },
+        "api_sites_videosummary_name": {
+            "defaultValue": "youraliasvideosummaryAPI",
+            "type": "String",
+            "metadata": {
+                "name": "Backend App Service Name",
+                "description": "The Runtime stack of current web app"
+            }
+        },
+        "api_linuxFxVersion": {
+            "type": "string",
+            "defaultValue": "DOTNETCORE|3.0",
+            "metadata": {
+                "description": "The Runtime stack of current web app"
+            }
         }
+        
     },
     "variables": {},
     "resources": [
