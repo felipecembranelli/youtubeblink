@@ -41,5 +41,5 @@ docker build -t video-summary-ingestion .
 https://github.com/felipecembranelli/video-summary-processor
 
 ```
-docker build -t video-summary-ingestion .
+docker build -t video-summary-processor .
 ```
