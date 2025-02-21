@@ -1,6 +1,6 @@
-## Creating Azure Resources
+## Creating Azure Container Registry
 
-To save time, we have an ARM template to get a few Azure resources created:
+To save time, we have an ARM template to get the resource created:
 
 - Container Registry (Used to store Docker Images for Application and Services)
 
