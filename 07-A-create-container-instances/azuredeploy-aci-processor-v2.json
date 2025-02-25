@@ -18,7 +18,7 @@
       },
       "location": {
         "type": "string",
-        "defaultValue": "[resourceGroup().location]",
+        "defaultValue": "westus",
         "metadata": {
           "description": "Location for all resources."
         }
@@ -62,7 +62,28 @@
         "metadata": {
           "description": "The behavior of Azure runtime if container has stopped."
         }
-      }
+      },
+      "userAssignedIdentities": {
+        "type": "string",
+        "defaultValue": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx/resourcegroups/myResourceGroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myACRId",
+        "metadata": {
+          "description": "The resource ID of the user-assigned identity."
+        }
+      },
+      "imageRegistryCredentialsServer": {
+        "type": "string",
+        "defaultValue": "videosummaryacr.azurecr.io",
+        "metadata": {
+          "description": "The image Registry Credentials Server."
+        }
+      },
+      "imageRegistryCredentialsIdentity": {
+        "type": "string",
+        "defaultValue": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx/resourcegroups/myResourceGroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myACRId",
+        "metadata": {
+          "description": "The image Registry Credentials Identity."
+        }
+      },
     },
     "resources": [
       {
@@ -70,6 +91,10 @@
         "apiVersion": "2023-05-01",
         "name": "[parameters('name')]",
         "location": "[parameters('location')]",
+         "identity": {
+          "type": "UserAssigned",
+          "userAssignedIdentities": "[parameters('userAssignedIdentities')]"
+        },
         "properties": {
           "containers": [
             {
@@ -89,6 +114,12 @@
                   }
                 }
               }
+            }
+          ],
+          "imageRegistryCredentials": [
+            {
+                "server": "[parameters('imageRegistryCredentialsServer')]",
+                "identity": "[parameters('imageRegistryCredentialsIdentity')]"
             }
           ],
           "osType": "Linux",
