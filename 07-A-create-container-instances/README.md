@@ -5,13 +5,15 @@
 To pull container images stored in an Azure container registry when deploying to container groups with Azure Container Instances you will need to configure the registry access. One way to do this is to create a Microsoft Entra managed identity.
 
 ```
-az identity create --resource-group myResourceGroup --name myACRId
+export myResourceGroup=[YOUR_RESOURCE_GROUP]
+
+az identity create --resource-group $myResourceGroup --name myACRId
 
 # Get resource ID of the user-assigned identity
-USERID=$(az identity show --resource-group myResourceGroup --name myACRId --query id --output tsv)
+USERID=$(az identity show --resource-group $myResourceGroup --name myACRId --query id --output tsv)
 
 # Get service principal ID of the user-assigned identity
-SPID=$(az identity show --resource-group myResourceGroup --name myACRId --query principalId --output tsv)
+SPID=$(az identity show --resource-group $myResourceGroup --name myACRId --query principalId --output tsv)
 
 echo $USERID
 

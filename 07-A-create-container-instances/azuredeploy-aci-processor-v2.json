@@ -93,7 +93,8 @@
         "location": "[parameters('location')]",
         "identity": {
           "type": "UserAssigned",
-          "userAssignedIdentities": "[parameters('userAssignedIdentities')]"
+          "userAssignedIdentities": {"[parameters('userAssignedIdentities')]": {}
+          }
         },
         "properties": {
           "containers": [
