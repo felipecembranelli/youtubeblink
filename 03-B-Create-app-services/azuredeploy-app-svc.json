@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serverfarms_videosummaryasp_name": {
-            "defaultValue": "youraliasvideosummaryasp",
+            "defaultValue": "video-summary-appplan-v3",
             "type": "String",
             "metadata": {
                 "name": "App Service Plan Name",
@@ -22,14 +22,14 @@
         },
         "ui_LinuxFxVersion": {
             "type": "string",
-            "defaultValue": "DOTNETCORE|3.0",
+            "defaultValue": "NODE|18LTS",
             "metadata": {
                 "name": "Runtime",
                 "description": "The Runtime stack of current web app"
             }
         },
         "ui_sites_videosummary_name": {
-            "defaultValue": "youraliasvideosummaryui",
+            "defaultValue": "video-summary-ui-v3",
             "type": "String",
             "metadata": {
                 "name": "Frontend App Service Name",
@@ -37,7 +37,7 @@
             }
         },
         "api_sites_videosummary_name": {
-            "defaultValue": "youraliasvideosummaryAPI",
+            "defaultValue": "video-summary-svc-v3",
             "type": "String",
 
             "metadata": {
@@ -47,7 +47,7 @@
         },
         "api_linuxFxVersion": {
             "type": "string",
-            "defaultValue": "DOTNETCORE|3.0",
+            "defaultValue": "DOTNETCORE|8.0",
             "metadata": {
                 "description": "The Runtime stack of current web app"
             }
