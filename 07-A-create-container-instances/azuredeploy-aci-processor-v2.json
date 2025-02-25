@@ -63,13 +63,6 @@
           "description": "The behavior of Azure runtime if container has stopped."
         }
       },
-      "userAssignedIdentities": {
-        "type": "string",
-        "defaultValue": "",
-        "metadata": {
-          "description": "The resource ID of the user-assigned identity."
-        }
-      },
       "imageRegistryCredentialsServer": {
         "type": "string",
         "defaultValue": "videosummaryacr.azurecr.io",
@@ -93,7 +86,8 @@
         "location": "[parameters('location')]",
         "identity": {
           "type": "UserAssigned",
-          "userAssignedIdentities": {"[parameters('userAssignedIdentities')]": {}
+          "userAssignedIdentities": {
+            "/subscriptions/8ea345a6-d61b-43bf-bf3f-0bbcc9ab66a6/resourcegroups/rg-videosummary-v3/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myACRId": {}
           }
         },
         "properties": {
