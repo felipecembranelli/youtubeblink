@@ -65,7 +65,7 @@
       },
       "userAssignedIdentities": {
         "type": "string",
-        "defaultValue": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx/resourcegroups/myResourceGroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myACRId",
+        "defaultValue": "",
         "metadata": {
           "description": "The resource ID of the user-assigned identity."
         }
@@ -79,7 +79,7 @@
       },
       "imageRegistryCredentialsIdentity": {
         "type": "string",
-        "defaultValue": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx/resourcegroups/myResourceGroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myACRId",
+        "defaultValue": "",
         "metadata": {
           "description": "The image Registry Credentials Identity."
         }
