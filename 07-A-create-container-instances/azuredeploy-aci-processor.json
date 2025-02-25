@@ -16,6 +16,13 @@
           "description": "Name for the container group"
         }
       },
+      "location": {
+        "type": "string",
+        "defaultValue": "[resourceGroup().location]",
+        "metadata": {
+          "description": "Location for all resources."
+        }
+      },
       "image": {
         "type": "string",
         "defaultValue": "videosummaryacr.azurecr.io/video-summary-processor:latest",
@@ -62,6 +69,7 @@
         "type": "Microsoft.ContainerInstance/containerGroups",
         "apiVersion": "2023-05-01",
         "name": "[parameters('name')]",
+        "location": "[parameters('location')]",
         "properties": {
           "containers": [
             {
@@ -113,6 +121,10 @@
       "containerIPv4Address": {
         "type": "string",
         "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups', parameters('name')), '2023-05-01').ipAddress.ip]"
+      },
+      "location": {
+        "type": "string",
+        "value": "[parameters('location')]"
       }
     }
   }
