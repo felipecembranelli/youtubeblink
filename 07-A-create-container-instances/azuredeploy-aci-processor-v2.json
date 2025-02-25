@@ -83,7 +83,7 @@
         "metadata": {
           "description": "The image Registry Credentials Identity."
         }
-      },
+      }
     },
     "resources": [
       {
@@ -91,7 +91,7 @@
         "apiVersion": "2023-05-01",
         "name": "[parameters('name')]",
         "location": "[parameters('location')]",
-         "identity": {
+        "identity": {
           "type": "UserAssigned",
           "userAssignedIdentities": "[parameters('userAssignedIdentities')]"
         },
