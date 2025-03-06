@@ -69,13 +69,6 @@
         "metadata": {
           "description": "The image Registry Credentials Server."
         }
-      },
-      "imageRegistryCredentialsIdentity": {
-        "type": "string",
-        "defaultValue": "",
-        "metadata": {
-          "description": "The image Registry Credentials Identity."
-        }
       }
     },
     "resources": [
@@ -114,7 +107,7 @@
           "imageRegistryCredentials": [
             {
                 "server": "[parameters('imageRegistryCredentialsServer')]",
-                "identity": "[parameters('imageRegistryCredentialsIdentity')]"
+                "identity": "/subscriptions/8ea345a6-d61b-43bf-bf3f-0bbcc9ab66a6/resourcegroups/rg-videosummary-v3/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myACRId"
             }
           ],
           "osType": "Linux",

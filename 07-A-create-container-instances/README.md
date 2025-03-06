@@ -19,11 +19,19 @@ echo $USERID
 
 echo $SPID
 
+# Grant the identity a role assignment
+
+REGISTRYID=$(az acr show --name videosummaryacr --resource-group rg-videosummary-v2 --query "id")
+
+echo $REGISTRYID
+
+az role assignment create --assignee $SPID --scope $REGISTRYID --role acrpull
+
 ```
 
 # Deploy using an Azure Resource Manager (ARM) template
 
-To save time, we have an ARM template to get the container instances for the Video Summary Processor component.
+To save time, we have an ARM template to get the container instances for the Video Summary Processor component. Replace the value of the "userAssignedIdentities" and "imageRegistryCredentials.Identity" with your resource ID of the user-assigned identity.
 
 Go ahead and Deploy to Azure
 
@@ -35,3 +43,8 @@ You should see something similar to the below image:
 ![alt text](../img/arm_aci_processor.JPG)
 
 > ⏱ The resource provisioning will take some time. **Do not wait!** Continue with the guides. Remember your Resource Group!
+
+
+# References
+
+https://learn.microsoft.com/en-us/azure/container-instances/using-azure-container-registry-mi
