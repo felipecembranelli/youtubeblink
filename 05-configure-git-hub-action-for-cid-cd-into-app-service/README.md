@@ -68,6 +68,7 @@ Dockerfile:
 ![alt text](../img/docker-ui.JPG)
 
 GitHub config:
+
 ![alt text](../img/var-ui.JPG)
 
 Workflow sample:
@@ -108,7 +109,15 @@ jobs:
 ```
 
 
+# How troubleshooting the CI/CD GitHub Pipelines
 
+First you need to enable the container app service log:
+
+![alt text](../img/app-svc-log-1.JPG)
+
+Then, you can see the container creation in the Deployment Center logs:
+
+![alt text](../img/app-svc-log-2.JPG)
 
 
 
